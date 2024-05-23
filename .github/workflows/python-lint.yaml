@@ -1,0 +1,39 @@
+name: Python Ruff Linter
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**.py'
+
+  pull_request:
+    branches: [ main ]
+    paths:
+      - '**.py'
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ruff-check-linting:
+    name:  Python ${{ matrix.python_version }} - Ruff Linter
+    if: ${{ always() }} # Always run even if a matrix candidate fails
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python_version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python_version }}
+        architecture: x64
+    - name: Install dependencies
+      run: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install ruff
+    - name: Check linting with ruff
+      run: python3 -m ruff check .
