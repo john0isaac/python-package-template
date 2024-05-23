@@ -1,0 +1,73 @@
+[project]
+name = "python-package-template"
+description= "A template project for python packages"
+version = "0.1.0b0"
+authors = [{ name = "John Aziz", email = "johnaziz269@gmail.com" }]
+maintainers = [{ name = "John Aziz", email = "johnaziz269@gmail.com" }]
+license = {file = "LICENSE"}
+readme = "README.md"
+
+requires-python = ">=3.8"
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    ]
+
+[project.urls]
+Homepage = "https://github.com/john0isaac/python-package-template"
+Issues = "https://github.com/john0isaac/python-package-template/issues"
+Contributing = "https://github.com/john0isaac/python-package-template/pulls"
+Releases = "https://github.com/john0isaac/python-package-template/releases"
+
+[tool.setuptools.package-data]
+"*" = ["*.html", "*.txt", "*.xml", "*.md"]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+    "ruff",
+    "black",
+    "mypy",
+]
+test = [
+    "pytest",
+    "pytest-cov",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+isort.known-first-party = ["python-package-template"]
+
+[tool.black]
+line-length = 120
+target-version = ["py312"]
+
+[tool.mypy]
+check_untyped_defs = true
+python_version = 3.12
+exclude = [".venv/*", "tests/"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --cov"
+testpaths = ["tests"]
+pythonpath = ['src']
+
+[tool.coverage.report]
+show_missing = true
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
